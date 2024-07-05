@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Project{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Proses List</h1>
+        <a href="{% url 'input_data:proses_create' %}" class="btn btn-primary">Create New Proses</a>
+    </div>
+    <div class="content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Proses</th>
+                    <th>Status Proses</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proses in proses_list %}
+                <tr>
+                    <td>{{ proses.id }}</td>
+                    <td>{{ proses.nama_aktivitas }}</td>
+                    <td>{{ proses.status }}</td>
+                    <td>
+                        <a href="{% url 'input_data:proses_detail' proses.pk %}" class="btn btn-info">View</a>
+                        <a href="{% url 'input_data:proses_update' proses.pk %}" class="btn btn-warning">Edit</a>
+                        <form method="post" action="{% url 'input_data:proses_delete' proses.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this project?");
+    }
+</script>
+{% endblock %}

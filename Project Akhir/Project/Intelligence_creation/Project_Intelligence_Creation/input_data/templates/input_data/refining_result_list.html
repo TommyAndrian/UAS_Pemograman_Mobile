@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Refining Result{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- Bagian Daftar Hasil Refining -->
+        <div id="refining-section" class="content-section active-section">
+            <div class="alert alert-warning" role="alert">
+                Daftar Hasil Refining
+            </div>
+            <form method="GET" action="{% url 'input_data:refining_result_list' %}" class="form-inline mb-3">
+                <a href="{% url 'input_data:refining_result_create' %}" class="btn btn-success ml-2">Create</a>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nama Proyek</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for refining_result in refining_results %}
+                        <tr class="record">
+                            <td>{{ refining_result.project }}</td>
+                            <td>
+                                <a href="{% url 'input_data:refining_result_update' refining_result.pk %}" class="btn btn-outline-success">Edit</a>
+                                <form method="post" action="{% url 'input_data:refining_result_delete' refining_result.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                <a href="{% url 'input_data:refining_result_detail' refining_result.pk %}" class="btn btn-outline-primary">View</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2">No results found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this project?");
+        }
+    </script>
+{% endblock %}

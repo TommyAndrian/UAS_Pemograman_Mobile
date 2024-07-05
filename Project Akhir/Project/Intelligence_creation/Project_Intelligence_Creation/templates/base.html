@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .content-section {
+            display: none;
+        }
+        .active-section {
+            display: block;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+        video#background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .sidebar {
+            z-index: 1; /* Ensure sidebar is above the video */
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var activeSectionId = document.getElementById('active-section-id').value;
+            if (activeSectionId) {
+                var activeSection = document.getElementById(activeSectionId);
+                if (activeSection) {
+                    activeSection.classList.add('active-section');
+                }
+            } else {
+                // Jika tidak ada yang aktif, aktifkan activity-section secara default
+                document.getElementById('activity-section').classList.add('active-section');
+                document.getElementById('active-section-id').value = 'activity-section';
+            }
+
+            window.showSection = function(sectionId, event) {
+                event.preventDefault();  // Menghentikan perilaku default dari anchor tag
+
+                // Simpan ID section yang aktif di input hidden
+                document.getElementById('active-section-id').value = sectionId;
+
+                // Menampilkan section yang sesuai
+                document.querySelectorAll('.content-section').forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active-section');
+                    } else {
+                        section.classList.remove('active-section');
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="{% url 'input_data:project_list' %}" onclick="showSection('problem-framing-section', event)">Problem Framing</a>
+        <a href="{% url 'input_data:dataset_list' %}" onclick="showSection('dataset-section', event)">Dataset</a>
+        <a href="{% url 'input_data:model_planning_list' %}" onclick="showSection('model-planning-section', event)">Model Planning</a>
+        <a href="{% url 'input_data:refining_planning_list' %}" onclick="showSection('refining-planning-section', event)">Refining Planning</a>
+        <a href="{% url 'input_data:training_testing_result_list' %}" onclick="showSection('training-tasting-result-section', event)">Hasil Training dan Testing</a>
+        <a href="{% url 'input_data:refining_result_list' %}" onclick="showSection('refining-result-section', event)">Hasil Refining</a>
+        <a href="{% url 'input_data:komunikasi_manajemen_list' %}" onclick="showSection('komunikasi-manajemen-section', event)">Komunikasi Manajemen</a>
+        <a href="{% url 'input_data:proses_list' %}" onclick="showSection('komunikasi-manajemen-section', event)">Pemrosesan Data</a>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <input type="hidden" id="active-section-id">
+</body>
+</html>

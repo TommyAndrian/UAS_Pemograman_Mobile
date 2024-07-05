@@ -1,0 +1,152 @@
+body {
+    background-image: url("{% static 'Intelligence_creation/background.jpg' %}");
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #80b5b2;
+}
+.sidebar {
+    width: 200px;
+    background-color: #3c3c3c;
+    padding: 30px;
+    box-sizing: border-box;
+    color: white;
+    flex-shrink: 0;
+    height: 1050px;
+}
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 18px;
+}
+.sidebar a:hover {
+    background-color: #575757;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #3c3c3c;
+    color: #80b5b2;
+}
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+.header img {
+    border-radius: 50%;
+}
+.main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #80b5b2;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.content {
+    width: 100%;
+    background-color: #80b5b2;
+    padding: 100px;
+    box-sizing: border-box;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.form-group textarea {
+    height: 100px;
+}
+.form-group button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f28b82;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.table-container {
+    margin-top: 20px;
+    width: 100%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #3c3c3c;
+    color: white;
+}
+.button-group button {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.update-button {
+    background-color: #4285f4;
+}
+.view-button {
+    background-color: #34a853;
+}
+.delete-button {
+    background-color: #ea4335;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.actions button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgb(244, 93, 93);
+    cursor: pointer;
+}
+.search-button {
+    background-color: #4285f4;
+}
+.create-button {
+    background-color: #34a853;
+}
+.hidden {
+    display: none;
+}
+.detail-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.detail-container p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.detail-container p span {
+    font-weight: bold;
+}

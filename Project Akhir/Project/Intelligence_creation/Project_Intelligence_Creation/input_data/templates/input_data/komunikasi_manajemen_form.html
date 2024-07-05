@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Komunikasi Manajemen</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Komunikasi Manajemen</h1>
+        </div>
+        <div class="content">
+            <form method="POST" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'input_data:komunikasi_manajemen_update' form.instance.pk %}{% else %}{% url 'input_data:komunikasi_manajemen_create' %}{% endif %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_nama_proyek">Status:</label>
+                    {{ form.status }}
+                </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'input_data:komunikasi_manajemen_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

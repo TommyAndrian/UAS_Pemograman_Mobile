@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Update Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .form-container .message {
+            margin-top: 20px;
+            color: green;
+        }
+        .form-container .error {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Update Status</h2>
+        <form id="statusForm">
+            <label for="nama_pek">Nama Pekerjaan:</label>
+            <input type="text" id="nama_pek" name="nama_pek" value="{{ data.nama_pek }}" readonly>
+            
+            <label for="desk_pek">Deskripsi Pekerjaan:</label>
+            <input type="text" id="desk_pek" name="desk_pek" value="{{ data.desk_pek }}" readonly>
+            
+            <label for="tangmul_pek">Tanggal Mulai:</label>
+            <input type="text" id="tangmul_pek" name="tangmul_pek" value="{{ data.tangmul_pek }}" readonly>
+            
+            <label for="tempatmul_pek">Tempat Mulai:</label>
+            <input type="text" id="tempatmul_pek" name="tempatmul_pek" value="{{ data.tempatmul_pek }}" readonly>
+            
+            <label for="tangsel_pek">Tanggal Selesai:</label>
+            <input type="text" id="tangsel_pek" name="tangsel_pek" value="{{ data.tangsel_pek }}" readonly>
+            
+            <label for="tempatsel_pek">Tempat Selesai:</label>
+            <input type="text" id="tempatsel_pek" name="tempatsel_pek" value="{{ data.tempatsel_pek }}" readonly>
+            
+            <label for="pel_pek">Pelaksana Pekerjaan:</label>
+            <input type="text" id="pel_pek" name="pel_pek" value="{{ data.pel_pek }}" readonly>
+            
+            <label for="super_pek">Supervisor Pekerjaan:</label>
+            <input type="text" id="super_pek" name="super_pek" value="{{ data.super_pek }}" readonly>
+            
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" value="{{ data.status }}">
+            
+            <label for="biaya_pek">Biaya Pekerjaan:</label>
+            <input type="text" id="biaya_pek" name="biaya_pek" value="{{ data.biaya_pek }}" readonly>
+            
+            <label for="project">Project ID:</label>
+            <input type="text" id="project" name="project" value="{{ data.project }}" readonly>
+
+                
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" value="{{ data.status }}">
+            
+            <button type="submit">Update</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        document.getElementById('statusForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let status = document.getElementById('status').value;
+            
+            fetch('/update_status/', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({status: status})
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            }).then(data => {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').classList.remove('error');
+                document.getElementById('message').classList.add('message');
+            }).catch(error => {
+                document.getElementById('message').textContent = 'There was a problem with the fetch operation: ' + error.message;
+                document.getElementById('message').classList.remove('message');
+                document.getElementById('message').classList.add('error');
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+    </script>
+</body>
+</html>

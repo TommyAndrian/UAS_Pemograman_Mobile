@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Perencanaan Refining</title>
+    <!-- Link CSS jika diperlukan -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            const refiningDetails = `
+Nama Model: {{ plan.model_name }}
+Identifikasi Masalah: {{ plan.description }}
+Evaluasi Model Awal: {{ plan.evaluasi_model_awal }}
+Tujuan Refining: {{ plan.refining_goal }}
+Nama Algoritma: {{ plan.refining_strategy }}
+Kebutuhan Data: {{ plan.additional_data }}
+Metodologi Pengujian: {{ plan.evaluation_methodology }}
+Metodologi Pengukuran: {{ plan.measurement_method }}
+Parameter Terbaik: {{ plan.best_parameters }}
+            `;
+
+            if (format === "txt") {
+                const blob = new Blob([refiningDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_perencanaan_refining.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text(refiningDetails, 10, 10);
+                doc.save('detail_perencanaan_refining.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+            Detail Perencanaan Refining
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nama Model</th>
+                <td>{{ plan.model_name }}</td>
+            </tr>
+            <tr>
+                <th>Identifikasi Masalah</th>
+                <td>{{ plan.description }}</td>
+            </tr>
+            <tr>
+                <th>Evaluasi Model Awal</th>
+                <td>{{ plan.evaluasi_model_awal }}</td>
+            </tr>
+            <tr>
+                <th>Tujuan Refining</th>
+                <td>{{ plan.refining_goal }}</td>
+            </tr>
+            <tr>
+                <th>Nama Algoritma</th>
+                <td>{{ plan.refining_strategy }}</td>
+            </tr>
+            <tr>
+                <th>Kebutuhan Data</th>
+                <td>{{ plan.additional_data }}</td>
+            </tr>
+            <tr>
+                <th>Metodologi Pengujian</th>
+                <td>{{ plan.evaluation_methodology }}</td>
+            </tr>
+            <tr>
+                <th>Metodologi Pengukuran</th>
+                <td>{{ plan.measurement_method }}</td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <a href="{% url 'input_data:refining_planning_list' %}" class="btn btn-outline-secondary">Back to List</a>
+            <label for="formatSelect">Pilih format file:</label>
+            <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                <option value="txt">TXT</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button class="btn btn-primary" onclick="downloadDetails()">Simpan Detail</button>
+        </div>
+    </div>
+</body>
+</html>

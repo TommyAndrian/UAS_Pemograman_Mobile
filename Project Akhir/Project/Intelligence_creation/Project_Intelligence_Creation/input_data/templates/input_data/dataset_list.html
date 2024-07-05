@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Daftar Dataset{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- Bagian Daftar Dataset -->
+        <div id="dataset-section" class="content-section active-section">
+            <div class="alert alert-warning" role="alert">
+                Daftar Dataset
+            </div>
+            
+            <form>
+                <a href="{% url 'input_data:dataset_create' %}" class="btn btn-success ml-2">Create</a>
+                <a href="{% url 'input_data:file_list' %}?dataset_id={{ dataset.pk }}" class="btn btn-primary m1-2">Lihat File</a>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nama Dataset</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dataset in datasets %}
+                        <tr>
+                            <td><a href="{% url 'input_data:dataset_detail' dataset.pk %}">{{ dataset.name }}</a></td>
+                            <td>
+                                <a href="{% url 'input_data:dataset_update' dataset.pk %}" class="btn btn-outline-success btn-sm">Edit</a>
+                                <form method="post" action="{% url 'input_data:dataset_delete' dataset.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                                <a href="{% url 'input_data:dataset_detail' dataset.pk %}" class="btn btn-outline-primary btn-sm">View</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2">No datasets found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this project?");
+        }
+    </script>
+{% endblock %}

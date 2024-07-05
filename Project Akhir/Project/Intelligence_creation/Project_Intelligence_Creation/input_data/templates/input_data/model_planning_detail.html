@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Perencanaan Model</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            const modelDetails = `
+Nama Model: {{ model.model_name }}
+Evaluasi Awal: {{ model.initial_evaluation }}
+Identifikasi Masalah: {{ model.problem_identification }}
+Strategi Refining: {{ model.refining_strategy }}
+Data Tambahan: {{ model.additional_data }}
+Metodologi Pengujian Refining: {{ model.evaluation_methodology }}
+Tujuan Refining: {{ model.refining_goal }}
+Parameter Terbaik: {{ model.best_parameters }}
+            `;
+
+            if (format === "txt") {
+                const blob = new Blob([modelDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_perencanaan_model.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text(modelDetails, 10, 10);
+                doc.save('detail_perencanaan_model.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+            Detail Perencanaan Model
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nama Model</th>
+                <td>{{ model.model_name }}</td>
+            </tr>
+            <tr>
+                <th>Deskripsi model</th>
+                <td>{{ model.deskripsi_model }}</td>
+            </tr>                                                                               
+            <tr>
+                <th>tujuan model</th>
+                <td>{{ model.tujuan_model }}</td>
+            </tr>
+            <tr>
+                <th>Nama Algoritma</th>
+                <td>{{ model.nama_algoritma }}</td>
+            </tr>
+            <tr>
+                <th>Data Tambahan</th>
+                <td>{{ model.kebutuhan_data }}</td>
+            </tr>
+            <tr>
+                <th>Metodologi Pengujian Refining</th>
+                <td>{{ model.metodologi_pengujian }}</td>
+            </tr>
+            <tr>
+                <th>motode pengukuran</th>
+                <td>{{ model.metode_pengukuran }}</td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <label for="formatSelect">Pilih format file:</label>
+            <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                <option value="txt">TXT</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button class="btn btn-primary" onclick="downloadDetails()">Simpan Detail</button>
+        </div>
+    </div>
+</body>
+</html>
