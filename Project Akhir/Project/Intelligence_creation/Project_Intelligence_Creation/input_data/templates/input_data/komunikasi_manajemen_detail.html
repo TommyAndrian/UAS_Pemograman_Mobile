@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Komunikasi Manajemen</title>
+    <!-- Link CSS jika diperlukan -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+    
+            // Mendapatkan detail komunikasi teknikal dalam format teks
+            const manajemenDetails = `
+    Nama Proyek: {{ komunikasi_manajemen.nama_proyek }}
+    Tanggal: {{  komunikasi_manajemen.tanggal }}
+Tujuan: {{ komunikasi_manajemen.tujuan_komunikasi }}
+Metode: {{ komunikasi_manajemen.metode_komunikasi }}
+   Hasil: {{ komunikasi_manajemen.hasil_komunikasi }}
+            `;
+    
+            if (format === "txt") {
+                const blob = new Blob([manajemenDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_komunikasi_teknikal.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF(); // Tidak perlu ubah karena sudah benar
+                doc.text(manajemenDetails, 10, 10);
+                doc.save('detail_komunikasi_menajemen.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Detail Komunikasi Manajemen</h1>
+        </div>
+        <div class="content">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nama Proyek</th>
+                        <td>{{ komunikasi_manajemen.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'input_data:komunikasi_manajemen_list' %}" class="btn btn-primary">Kembali ke Daftar Komunikasi Manajemen</a>
+            <div class="form-group">
+                <label for="formatSelect">Pilih format file:</label>
+                <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                    <option value="txt">TXT</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <button class="btn btn-primary" onclick="downloadDetails()">Simpan Detail</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

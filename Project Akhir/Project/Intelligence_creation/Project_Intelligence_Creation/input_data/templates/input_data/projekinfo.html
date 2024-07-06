@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Daftar Proyek{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Daftar Proyek</h2>
+
+    <h3>Data dari DataProjek</h3>
+    {% if projek_list_data %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">ID Proyek</th>
+                    <th scope="col">Nama Proyek</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projek_list_data %}
+                    <tr>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.nama_proyek }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Tidak ada data proyek yang tersedia.</p>
+    {% endif %}
+</div>
+{% endblock %}

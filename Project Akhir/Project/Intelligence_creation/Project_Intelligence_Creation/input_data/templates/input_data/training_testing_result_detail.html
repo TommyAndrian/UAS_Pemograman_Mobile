@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Hasil Pelatihan dan Pengujian</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            const resultDetails = `
+Nama Proyek: {{ result.project }}
+Nama Dataset: {{ result.dataset }}
+Aktivitas: {{ result.activity }}
+Hasil Pelatihan: {{ result.training_result.url }}
+Hasil Pengujian: {{ result.testing_result.url }}
+            `;
+
+            if (format === "txt") {
+                const blob = new Blob([resultDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_hasil_pelatihan_pengujian.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text(resultDetails, 10, 10);
+                doc.save('detail_hasil_pelatihan_pengujian.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+            Detail Hasil Pelatihan dan Pengujian
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nama Proyek</th>
+                <td>{{ result.project }}</td>
+            </tr>
+            <tr>
+                <th>Nama Dataset</th>
+                <td>{{ result.dataset }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ result.activity }}</td>
+            </tr>
+            <tr>
+                <th>Hasil Pelatihan</th>
+                <td><a href="{{ result.training_result.url }}" download>{{ result.training_result }}</a></td>
+            </tr>
+            <tr>
+                <th>Hasil Pengujian</th>
+                <td><a href="{{ result.testing_result.url }}" download>{{ result.testing_result }}</a></td>
+            </tr>
+        </table>
+        <a href="{% url 'input_data:training_testing_result_list' %}" class="btn btn-secondary">Back to List</a>
+        <div class="form-group">
+            <label for="formatSelect">Choose file format:</label>
+            <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                <option value="txt">TXT</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button class="btn btn-primary" onclick="downloadDetails()">Save Details</button>
+        </div>
+    </div>
+</body>
+</html>
+

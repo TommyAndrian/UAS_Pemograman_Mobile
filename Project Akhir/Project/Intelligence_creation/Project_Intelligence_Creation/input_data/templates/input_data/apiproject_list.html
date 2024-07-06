@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}API and Local Projects{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="header mb-4">
+            <h1>Daftar Project dari API dan Lokal</h1>
+        </div>
+        <div class="content">
+            <form method="GET" action="{% url 'input_data:apiproject_list' %}" class="form-inline mb-3">
+                <input type="text" name="q" class="form-control mr-2" placeholder="Nama Proyek" value="{{ query }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            
+            <h2>Proyek dari API</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Proyek</th>
+                        <th scope="col">Nama Proyek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in api_projects %}
+                        <tr class="record">
+                            <td>{{ project.id }}</td>
+                            <td>{{ project.nama_project }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2">No projects found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

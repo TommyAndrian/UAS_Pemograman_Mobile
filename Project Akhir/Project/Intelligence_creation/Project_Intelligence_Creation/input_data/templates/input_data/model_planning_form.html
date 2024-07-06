@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Perencanaan Model</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">  
+</head>
+<style>
+       
+    body {
+        background-color: #80b5b2;
+        padding: 20px;
+    }
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px; /* Optional: Adjust container width */
+
+    }
+</style>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Form Perencanaan Model</h2>
+        <form id="model-planning-form" method="POST">
+            {% csrf_token %}
+            <!-- Nama Model -->
+            <div class="form-group">
+                <label for="id_model_name">Nama Model:</label>
+                {{ form.model_name }}
+            </div>
+            
+            <!-- Evaluasi Awal -->
+            <div class="form-group">
+                <label for="id_initial_evaluation">Deskripsi Model:</label>
+                {{ form.deskripsi_model }}
+            </div>
+            
+            <!-- Identifikasi Masalah -->
+            <div class="form-group">
+                <label for="id_problem_identification">Tujuan Model:</label>
+                {{ form.tujuan_model }}
+            </div>
+            
+            <!-- Strategi Refining -->
+            <div class="form-group">
+                <label for="id_refining_strategy">Nama Algoritma:</label>
+                {{ form.nama_algoritma }}
+            </div>
+            
+            <!-- Data Tambahan -->
+            <div class="form-group">
+                <label for="id_additional_data">Kebutuhan Data:</label>
+                {{ form.kebutuhan_data }}
+            </div>
+            
+            <!-- Metodologi Pengujian Refining -->
+            <div class="form-group">
+                <label for="id_evaluation_methodology">Metodologi Pengujian :</label>
+                {{ form.metodologi_pengujian }}
+            </div>
+            
+            <!-- Tujuan Refining -->
+            <div class="form-group">
+                <label for="id_refining_goal">Metode Pengukuran:</label>
+                {{ form.metode_pengukuran }}
+            </div>        
+            <!-- Tombol Submit dan Kembali -->
+            <div class="form-group">
+                <a href="{% url 'input_data:model_planning_list' %}" class="btn btn-outline-secondary">Back to List</a>
+                
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{% url 'input_data:model_planning_list' %}" class="btn btn-secondary">Kembali ke Daftar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

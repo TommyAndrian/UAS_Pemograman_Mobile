@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Refining Planning</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Refining Planning</h1>
+        </div>
+        <div class="content">
+            <form id="refining-planning-form" method="POST" action="{% if form.instance.pk %}{% url 'input_data:refining_planning_update' pk=form.instance.pk %}{% else %}{% url 'input_data:refining_planning_create' %}{% endif %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_model_name">Nama Model:</label>
+                    {{ form.model_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Identifikasi Masalah:</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_refining_goal">Evaluasi Model Awal:</label>
+                    {{ form.evaluasi_model_awal }}
+                </div>
+                <div class="form-group">
+                    <label for="id_refining_goal">Tujuan Refining:</label>
+                    {{ form.refining_goal }}
+                </div>
+                <div class="form-group">
+                    <label for="id_algorithm">Strategi:</label>
+                    {{ form.refining_strategy }}
+                </div>
+                <div class="form-group">
+                    <label for="id_data_requirements">Kebutuhan Data:</label>
+                    {{ form.additional_data }}
+                </div>
+                <div class="form-group">
+                    <label for="id_evaluation_methodology">Metodologi Pengujian:</label>
+                    {{ form.evaluation_methodology }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_evaluation_methodology">Metodologi Pengukuran:</label>
+                    {{ form.measurement_method}}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'input_data:refining_planning_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

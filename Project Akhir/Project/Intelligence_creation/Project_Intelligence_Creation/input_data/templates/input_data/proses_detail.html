@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proses Detail</title>
+    <!-- Link CSS jika diperlukan -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            const projectDetails = `
+    id project: {{ project.project_id }}
+    nama projek: {{ project.project_name }}
+    Deskripsi: {{ project.description }}
+    Algoritma: {{ project.algorithm }}
+    Hasil :{{ project.output }}
+            `;
+    
+            if (format === "txt") {
+                const blob = new Blob([projectDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_project.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const splitText = doc.splitTextToSize(projectDetails, 180);
+                doc.text(splitText, 10, 10); // Menampilkan teks yang telah dibagi
+                doc.save('project.pdf');
+            }
+        }
+    </script>
+    
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Proses Detail</h1>
+        </div>
+        <div class="content">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nama Aktivitas</th>
+                        <td>{{ proses.nama_aktivitas}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Deskripsi Aktivitas</th>
+                        <td>{{ proses.deskripsi_aktivitas }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dataset </th>
+                        <td>{{ proses.dataset_yang_dipakai }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Hasil</th>
+                        <td><a href="{{ proses.result_file.url }}">{{ proses.result_file }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>{{ proses.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'input_data:proses_list' %}" class="btn btn-primary">Kembali ke Daftar Proyek</a>
+            <div class="form-group">
+                <label for="formatSelect">Pilih format file:</label>
+                <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                    <option value="txt">TXT</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <button class="btn btn-primary" onclick="downloadDetails()">Simpan Detail</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

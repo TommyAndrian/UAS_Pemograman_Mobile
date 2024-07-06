@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Proses</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Proses</h1>
+    </div>
+    <div class="content">
+        <form method="POST" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'input_data:proses_update' form.instance.pk %}{% else %}{% url 'input_data:proses_create' %}{% endif %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_nama_proses">Nama Proses:</label>
+                {{ form.nama_aktivitas }}
+                {% if form.nama_aktivitas.errors %}
+                    <div class="invalid-feedback d-block">{{ form.nama_aktivitas.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_deskripsi_proses">Deskripsi Proses:</label>
+                {{ form.deskripsi_aktivitas }}
+                {% if form.deskripsi_aktivitas.errors %}
+                    <div class="invalid-feedback d-block">{{ form.deskripsi_aktivitas.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_dataset_yang_dipakai">Dataset Yang Dipakai:</label>
+                {{ form.dataset_yang_dipakai }}
+                {% if form.dataset_yang_dipakai.errors %}
+                    <div class="invalid-feedback d-block">{{ form.dataset_yang_dipakai.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_result_file">Upload File Hasil:</label>
+                {{ form.result_file }}
+                {% if form.result_file.errors %}
+                    <div class="invalid-feedback d-block">{{ form.result_file.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_status">Status:</label>
+                {{ form.status }}
+                {% if form.status.errors %}
+                    <div class="invalid-feedback d-block">{{ form.status.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

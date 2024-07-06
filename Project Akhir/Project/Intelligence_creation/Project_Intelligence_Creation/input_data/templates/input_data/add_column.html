@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if column_form.instance.pk %}Update{% else %}Add{% endif %} Column to {{ dataset.name }}</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .column-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{% if column_form.instance.pk %}Update{% else %}Add{% endif %} Column to {{ dataset.name }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">Column Name:</label>
+                <input type="text" id="id_name" name="name" class="form-control" value="{{ column_form.instance.name }}">
+            </div>
+            <div class="form-group">
+                <label for="id_data_type">Data Type:</label>
+                <input type="text" id="id_data_type" name="data_type" class="form-control" value="{{ column_form.instance.data_type }}">
+            </div>
+            <button type="submit" class="btn btn-primary">{% if column_form.instance.pk %}Update{% else %}Add{% endif %} Column</button>
+            <a href="{% url 'input_data:dataset_detail' dataset.pk %}" class="btn btn-secondary">Finish</a>
+        </form>
+        <h2>Columns</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    {% for column in dataset.columns.all %}
+                        <li class="list-group-item">
+                            <div class="column-item">
+                                <div>
+                                    <strong>{{ column.name }}</strong>
+                                    <br>
+                                    <small>{{ column.data_type }}</small>
+                                </div>
+                                <div>
+                                    <a href="{% url 'input_data:edit_column' column.pk %}" class="btn btn-outline-success">Edit</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No columns added yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

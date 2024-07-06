@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Hasil Refining</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Hasil Refining</h1>
+        </div>
+        <div class="content">
+            <form method="POST" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'input_data:refining_result_update' form.instance.pk %}{% else %}{% url 'input_data:refining_result_create' %}{% endif %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_project">Nama Proyek:</label>
+                    {{ form.project }}
+                </div>
+                <div class="form-group">
+                    <label for="id_dataset">Nama Dataset:</label>
+                    {{ form.dataset }}
+                </div>
+                <div class="form-group">
+                    <label for="id_activity">Model:</label>
+                    {{ form.activity }}
+                </div>
+                <div class="form-group">
+                    <label for="id_refining_result">Hasil Refining:</label>
+                    <input type="file" class="form-control-file" id="id_refining_result" name="refining_result">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'input_data:refining_result_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

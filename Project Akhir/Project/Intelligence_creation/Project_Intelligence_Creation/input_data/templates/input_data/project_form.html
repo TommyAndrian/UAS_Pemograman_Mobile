@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create/Update Project</title>
+    <!-- Link CSS jika diperlukan -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Project</h1>
+        </div>
+        <div class="content">
+            <form id="project-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_project_id">Id Proyek:</label>
+                    {{ form.project_id }}
+                </div>
+                <div class="form-group">
+                    <label for="id_project_name">Nama Proyek:</label>
+                    {{ form.project_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_description">Deskripsi:</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="id_algorithm">Algoritma:</label>
+                    {{ form.algorithm }}
+                </div>
+                <div class="form-group">
+                    <label for="id_output">Output:</label>
+                    {{ form.output }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'input_data:project_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Post Status{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Post Status</h1>
+    
+    <form id="statusForm">
+        {% csrf_token %}
+        <label for="projek">Projek:</label>
+        <select id="projek" name="projek" required>
+            <option value="" disabled selected>------ Pilih Proyek ------</option>
+            {% for projek in projek_list %}
+                <option value="{{ projek.id }}">{{ projek.nama_proyek }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="status">Status:</label>
+        <textarea id="status" name="status" rows="4" cols="50" required></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('statusForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const status = document.getElementById('status').value;
+        const projek = document.getElementById('projek').value;
+
+        const data = {
+            status: status,
+            projek: projek,
+        };
+
+        console.log('Data to send:', data);
+
+        fetch('http://10.24.80.147:8004/api/status/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.json().then(data => {
+                if (!response.ok) {
+                    throw new Error('Error: ' + JSON.stringify(data));
+                }
+                return data;
+            });
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('Status created successfully!');
+            document.getElementById('statusForm').reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to create status: ' + error.message);
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}

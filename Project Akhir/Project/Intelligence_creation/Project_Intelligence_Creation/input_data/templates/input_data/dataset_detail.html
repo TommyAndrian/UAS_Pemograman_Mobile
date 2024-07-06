@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Dataset</title>
+    <link rel="stylesheet" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            
+            // Mendapatkan detail kolom dalam format teks
+            const columns = `{% for column in columns %}{{ column.name }} ({{ column.data_type }})
+{% endfor %}`;
+
+            // Mendapatkan detail dataset
+            const datasetDetails = `
+Nama Dataset: {{ dataset.name }}
+Deskripsi: {{ dataset.description }}
+Columns:
+${columns}
+            `;
+
+            if (format === "txt") {
+                const blob = new Blob([datasetDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_dataset.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text(datasetDetails, 10, 10);
+                doc.save('detail_dataset.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+            Detail Dataset
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Nama Dataset</th>
+                <td>{{ dataset.name }}</td>
+            </tr>
+            <tr>
+                <th>Deskripsi</th>
+                <td>{{ dataset.description }}</td>
+            </tr>
+            <tr>
+                <th>Columns</th>
+                <td>
+                    <ul>
+                        {% for column in columns %}
+                            <li>{{ column.name }} ({{ column.data_type }})</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <a href="{% url 'input_data:dataset_list' %}" class="btn btn-secondary">Back to List</a>
+        <div class="form-group">
+            <label for="formatSelect">Choose file format:</label>
+            <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                <option value="txt">TXT</option>
+                <option value="pdf">PDF</option>
+            </select>
+            <button class="btn btn-primary" onclick="downloadDetails()">Save Details</button>
+        </div>
+    </div>
+</body>
+</html>

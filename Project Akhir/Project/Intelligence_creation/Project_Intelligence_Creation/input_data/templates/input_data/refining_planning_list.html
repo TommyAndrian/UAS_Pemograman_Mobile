@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Refining Planning{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- Bagian Daftar Perencanaan Refining -->
+        <div id="refining-planning-section" class="content-section active-section">
+            <div class="alert alert-warning" role="alert">
+                Daftar Perencanaan Refining
+            </div>
+            <form>
+                <a href="{% url 'input_data:refining_planning_create' %}" class="btn btn-success ml-2">Create</a>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nama Model</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plan in plans %}
+                    <tr>
+                        <td>{{ plan.model_name }}</td>
+                        <td>
+                            <a href="{% url 'input_data:refining_planning_update' pk=plan.pk %}" class="btn btn-outline-success">Edit</a>
+
+                            <form method="post" action="{% url 'input_data:refining_planning_delete' plan.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            <a href="{% url 'input_data:refining_planning_detail' pk=plan.pk %}" class="btn btn-outline-primary">Lihat</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">Tidak ada perencanaan refining yang ditemukan.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this project?");
+        }
+    </script>
+    {% endblock %}

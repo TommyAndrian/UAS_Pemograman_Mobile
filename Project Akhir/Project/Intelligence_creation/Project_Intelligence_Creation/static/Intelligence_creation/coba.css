@@ -1,0 +1,27 @@
+
+/* Inline styles for demonstration purposes */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.form-group textarea {
+    height: 100px;
+}
+.form-group button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f28b82;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

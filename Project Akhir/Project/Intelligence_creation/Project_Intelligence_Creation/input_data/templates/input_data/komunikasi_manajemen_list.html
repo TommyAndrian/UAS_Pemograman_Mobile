@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Daftar Komunikasi Manajemen{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- Bagian Daftar Komunikasi Manajemen -->
+        <div id="komunikasi-manajemen-section" class="content-section active-section">
+            <div class="alert alert-warning" role="alert">
+                Daftar Komunikasi Manajemen
+            </div>
+            <form>
+                <a href="{% url 'input_data:komunikasi_manajemen_create' %}" class="btn btn-success ml-2">Create</a>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nama Proyek</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for komunikasi_manajemen in komunikasi_manajemens %}
+                        <tr class="record">
+                            <td>{{ komunikasi_manajemen.status }}</td>
+                            <td>
+                                <a href="{% url 'input_data:komunikasi_manajemen_update' komunikasi_manajemen.pk %}" class="btn btn-outline-success">Edit</a>
+                                <form method="post" action="{% url 'input_data:komunikasi_manajemen_delete' komunikasi_manajemen.pk %}" style="display:inline;" onsubmit="return confirmDelete();">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2">No results found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function confirmDelete() {
+                return confirm("Are you sure you want to delete this project?");
+            }
+        </script>
+
+        <input type="hidden" id="active-section-id" value="{{ active_section }}">
+    </div>
+{% endblock %}

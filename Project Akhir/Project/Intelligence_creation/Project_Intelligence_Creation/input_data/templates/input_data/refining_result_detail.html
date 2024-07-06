@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Hasil Pelatihan dan Pengujian</title>
+    <!-- Link CSS jika diperlukan -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Intelligence_creation/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadDetails() {
+            const format = document.getElementById("formatSelect").value;
+            const refining_resultDetails= `
+Nama Proyek: {{ refining_result.project }}
+Nama Dataset: {{ refining_result.dataset }}
+Aktivitas: {{ refining_result.activity }}
+Hasil Refining: {{ refining_result.refining_result }}
+            `;
+
+            if (format === "txt") {
+                const blob = new Blob([refining_resultDetails], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'detail_hasil_pelatihan_dan_pengujian.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === "pdf") {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.text(refining_resultDetails, 10, 10);
+                doc.save('detail_hasil_pelatihan_dan_pengujian.pdf');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Detail Hasil Pelatihan dan Pengujian</h1>
+        </div>
+        <div class="content">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nama Proyek</th>
+                        <td>{{ refining_result.project }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nama Dataset</th>
+                        <td>{{ refining_result.dataset }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Model</th>
+                        <td>{{ refining_result.activity }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Hasil Refining</th>
+                        <td><a href="{{ refining_result.training_result.url }}">{{ refining_result.refining_result }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'input_data:training_testing_result_list' %}" class="btn btn-primary">Kembali ke Daftar Hasil Pelatihan dan Pengujian</a>
+            <div class="form-group">
+                <label for="formatSelect">Pilih format file:</label>
+                <select id="formatSelect" class="form-control" style="width: auto; display: inline-block;">
+                    <option value="txt">TXT</option>
+                    <option value="pdf">PDF</option>
+                </select>
+                <button class="btn btn-primary" onclick="downloadDetails()">Simpan Detail</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
