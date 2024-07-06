@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UAS"
+        tools:targetApi="31">
+        <activity
+            android:name=".EditKomunikasiManajemen"
+            android:exported="false"
+            android:label="@string/title_activity_edit_komunikasi_manajemen"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewKomunikasiManajemen"
+            android:exported="false"
+            android:label="@string/title_activity_view_komunikasi_manajemen"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateKomunikasiManajemen"
+            android:exported="false"
+            android:label="@string/title_activity_create_komunikasi_manajemen"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".KomunikasiManajemen"
+            android:exported="false"
+            android:label="@string/title_activity_komunikasi_manajemen"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditHasilRefining"
+            android:exported="false"
+            android:label="@string/title_activity_edit_hasil_refining"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewHasilRefining"
+            android:exported="false"
+            android:label="@string/title_activity_view_hasil_refining"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateHasilRefining"
+            android:exported="false"
+            android:label="@string/title_activity_create_hasil_refining"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".HasilRefining"
+            android:exported="false"
+            android:label="@string/title_activity_hasil_refining"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditTrainingTesting"
+            android:exported="false"
+            android:label="@string/title_activity_edit_training_testing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewTrainingTesting"
+            android:exported="false"
+            android:label="@string/title_activity_view_training_testing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".TrainingTesting"
+            android:exported="false"
+            android:label="@string/title_activity_training_testing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateTrainingTesting"
+            android:exported="false"
+            android:label="@string/title_activity_create_training_testing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditRefiningPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_edit_refining_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewRefiningPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_view_refining_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateRefiningPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_create_refining_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".RefiningPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_refinning_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditModelPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_edit_model_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewModelPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_view_model_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateModelPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_create_model_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ModelPlanning"
+            android:exported="false"
+            android:label="@string/title_activity_model_planning"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditPemrosesan"
+            android:exported="false"
+            android:label="@string/title_activity_edit_pemrosesan"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewPemrosesan"
+            android:exported="false"
+            android:label="@string/title_activity_view_pemrosesan"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreatePemrosesan"
+            android:exported="false"
+            android:label="@string/title_activity_create_pemrosesan"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".PemrosesanData"
+            android:exported="false"
+            android:label="@string/title_activity_pemrosesan_data"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditDataset"
+            android:exported="false"
+            android:label="@string/title_activity_edit_dataset"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewDataset"
+            android:exported="false"
+            android:label="@string/title_activity_view_dataset"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateDataset"
+            android:exported="false"
+            android:label="@string/title_activity_create_dataset"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".Dataaset"
+            android:exported="false"
+            android:label="@string/title_activity_dataaset"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".EditProblemFraming"
+            android:exported="false"
+            android:label="@string/title_activity_edit_problem_framing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ViewProblemFraming"
+            android:exported="false"
+            android:label="@string/title_activity_view_problem_framing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".ProblemFraming"
+            android:exported="false"
+            android:label="@string/title_activity_problem_framing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".CreateProblemFraming"
+            android:exported="false"
+            android:label="@string/title_activity_create_problem_framing"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".data.AppDatabase"
+            android:exported="false"
+            android:label="@string/title_activity_app_database"
+            android:theme="@style/Theme.UAS" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.UAS">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

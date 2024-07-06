@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">UAS</string>
+    <string name="title_activity_app_database">AppDatabase</string>
+    <string name="title_activity_create_problem_framing">CreateProblemFraming</string>
+    <string name="title_activity_problem_framing">ProblemFraming</string>
+    <string name="title_activity_view_problem_framing">ViewProblemFraming</string>
+    <string name="title_activity_edit_problem_framing">EditProblemFraming</string>
+    <string name="title_activity_dataaset">Dataaset</string>
+    <string name="title_activity_create_dataset">CreateDataset</string>
+    <string name="title_activity_view_dataset">ViewDataset</string>
+    <string name="title_activity_edit_dataset">EditDataset</string>
+    <string name="title_activity_pemrosesan_data">PemrosesanData</string>
+    <string name="title_activity_create_pemrosesan">CreatePemrosesan</string>
+    <string name="title_activity_view_pemrosesan">ViewPemrosesan</string>
+    <string name="title_activity_edit_pemrosesan">EditPemrosesan</string>
+    <string name="title_activity_model_planning">ModelPlanning</string>
+    <string name="title_activity_create_model_planning">CreateModelPlanning</string>
+    <string name="title_activity_view_model_planning">ViewModelPlanning</string>
+    <string name="title_activity_edit_model_planning">EditModelPlanning</string>
+    <string name="title_activity_refinning_planning">RefinningPlanning</string>
+    <string name="title_activity_create_refining_planning">CreateRefiningPlanning</string>
+    <string name="title_activity_view_refining_planning">ViewRefiningPlanning</string>
+    <string name="title_activity_edit_refining_planning">EditRefiningPlanning</string>
+    <string name="title_activity_create_training_testing">CreateTrainingTesting</string>
+    <string name="title_activity_training_testing">TrainingTesting</string>
+    <string name="title_activity_view_training_testing">ViewTrainingTesting</string>
+    <string name="title_activity_edit_training_testing">EditTrainingTesting</string>
+    <string name="title_activity_hasil_refining">HasilRefining</string>
+    <string name="title_activity_create_hasil_refining">CreateHasilRefining</string>
+    <string name="title_activity_view_hasil_refining">ViewHasilRefining</string>
+    <string name="title_activity_edit_hasil_refining">EditHasilRefining</string>
+    <string name="title_activity_komunikasi_manajemen">KomunikasiManajemen</string>
+    <string name="title_activity_create_komunikasi_manajemen">CreateKomunikasiManajemen</string>
+    <string name="title_activity_view_komunikasi_manajemen">ViewKomunikasiManajemen</string>
+    <string name="title_activity_edit_komunikasi_manajemen">EditKomunikasiManajemen</string>
+</resources>
